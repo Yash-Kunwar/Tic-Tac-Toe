@@ -1,3 +1,5 @@
+// A game of Tic-Tac-Toe. No more wasting the last page of the book. :)
+
 #include <iostream>
 #include <string>
 
