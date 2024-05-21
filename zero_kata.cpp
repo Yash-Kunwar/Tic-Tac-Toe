@@ -25,7 +25,7 @@ int column;
 char token = 'x';
 
 // Function to display the Tic Tac Toe board
-void tTt()
+void board()
 {
     cout << "   |    |   " << endl;
     cout << " " << space[0][0] << " |  " << space[0][1] << " |  " << space[0][2] << endl;
@@ -116,7 +116,7 @@ void check()
     }
 
     // Display the updated board
-    tTt();
+    board();
 }
 
 // Function to check for a winning condition or a draw
@@ -172,7 +172,7 @@ int main()
     while (!pairing())
     {
         // Display the current board and prompt the current player for their move
-        tTt();
+        board();
         check();
     }
 
