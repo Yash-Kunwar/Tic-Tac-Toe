@@ -1,5 +1,3 @@
-// A game of Tic-Tac-Toe. No more wasting the back side of the book xd :)
-
 #include <iostream>
 #include <string>
 
@@ -14,18 +12,15 @@ char space[3][3] = {{'1', '2', '3'},
 string n1 = "";
 string n2 = "";
 
-// Flags to track game state
-bool draw = false;
-
 // Variables to store the current row and column
 int row;
 int column;
 
-// Token to determine the current player ('x' or 'o')
+// Variable to store the current player ('x' or 'o')
 char token = 'x';
 
 // Function to display the Tic Tac Toe board
-void board()
+void tTt()
 {
     cout << "   |    |   " << endl;
     cout << " " << space[0][0] << " |  " << space[0][1] << " |  " << space[0][2] << endl;
@@ -46,13 +41,12 @@ void check()
     if (token == 'x')
     {
         cout << n1 << ", please enter: ";
-        cin >> digit;
     }
     else if (token == 'o')
     {
         cout << n2 << ", please enter: ";
-        cin >> digit;
     }
+    cin >> digit;
 
     // Determine the row and column based on the player's input
     switch (digit)
@@ -116,11 +110,11 @@ void check()
     }
 
     // Display the updated board
-    board();
+    tTt();
 }
 
-// Function to check for a winning condition or a draw
-bool pairing()
+// Function to check for a winning condition
+bool checkWin()
 {
     // Check for a win in rows and columns
     for (int i = 0; i < 3; i++)
@@ -139,7 +133,12 @@ bool pairing()
         return true;
     }
 
-    // Check for a draw (if all spaces are filled)
+    return false;
+}
+
+// Function to check for a draw
+bool checkDraw()
+{
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
@@ -150,10 +149,7 @@ bool pairing()
             }
         }
     }
-
-    // If no empty spaces and no win, it's a draw
-    draw = true;
-    return false;
+    return true;
 }
 
 int main()
@@ -169,25 +165,32 @@ int main()
     cout << n2 << " is player 2 so they will move second" << endl;
 
     // Main game loop
-    while (!pairing())
+    while (true)
     {
         // Display the current board and prompt the current player for their move
-        board();
+        tTt();
         check();
-    }
 
-    // Announce the result of the game
-    if (draw)
-    {
-        cout << "It's a DRAW!!" << endl;
-    }
-    else if (token == 'o')
-    {
-        cout << n1 << " WINS!!" << endl; // If 'o' was supposed to play next, 'x' won
-    }
-    else if (token == 'x')
-    {
-        cout << n2 << " WINS!!" << endl; // If 'x' was supposed to play next, 'o' won
+        // Check for a win after making a move
+        if (checkWin())
+        {
+            if (token == 'o')
+            {
+                cout << n1 << " WINS!!" << endl; // If 'o' was supposed to play next, 'x' won
+            }
+            else if (token == 'x')
+            {
+                cout << n2 << " WINS!!" << endl; // If 'x' was supposed to play next, 'o' won
+            }
+            break; // Exit the loop after a win
+        }
+
+        // Check for a draw after making a move
+        if (checkDraw())
+        {
+            cout << "It's a DRAW!!" << endl;
+            break; // Exit the loop after a draw
+        }
     }
 
     return 0;
